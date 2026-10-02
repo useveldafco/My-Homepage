@@ -1,0 +1,36 @@
+name: Inspect publication
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/inspect-publication.yml
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          persist-credentials: true
+
+      - name: Print publication
+        run: |
+          nl -ba _publications/2025-06-20-llm-adaptive-learning.md
+
+      - name: Remove inspection workflows
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/inspect-publication.yml
+          if [ -f .github/workflows/remove-ineligible-code-link.yml ]; then
+            git rm .github/workflows/remove-ineligible-code-link.yml
+          fi
+          git commit -m "Remove inspection workflows"
+          git push origin master
