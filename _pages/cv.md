@@ -61,4 +61,5 @@ Teaching
   
 Service and leadership
 ======
+* 2025: Reviewer, LCFM 2025 (Long Context Foundation Models)
 * Currently signed in to 43 different slack teams
